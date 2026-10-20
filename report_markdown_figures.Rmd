@@ -1,0 +1,239 @@
+---
+output:
+  word_document:
+    reference_docx: template_pil.dotx
+  pdf_document: default
+---
+  
+```{r setup, include=FALSE}
+
+library(knitr)
+knitr::opts_chunk$set(comment = NA)
+
+library(icesTAF)
+
+library(FLCore)
+library(stockassessment)
+library(FLSAM)
+
+library(tidyverse)
+library(pander)
+
+reportPath     <- file.path(".", "report")
+
+```
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+knitr::include_graphics(file.path(reportPath,'input', "input_catch_SOP_fig.png"))
+```
+**Figure 1. Sardine in the North West Africa region - Input data. Comparison of report catch tonnage against catch tonnage calculated from the catch at age matrix and catch weights at age, so called Sum Of Product (SOP). The comparison is made for sub-regions A+B and C (a) and for the combination of those two sub-regions (b).**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_catch_fig.png")) 
+```
+**Figure 2. Sardine in the North West Africa region - Input data. Diagnostics of the catch at age matrix. (a) Proportion of catch at age by year. (b) Internal consistency of the catch at age matrix.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_MA_idx_fig.png")) 
+```
+**Figure 3. Sardine in the North West Africa region - Input data. Diagnostics of the index at age matrix from the Moroccan survey. (a) Proportion of index at age by year. (b) Internal consistency of the indices at age.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+knitr::include_graphics(file.path(reportPath,'input', "input_wstock_cohort.png"))
+```
+**Figure 4. Sardine in the North West Africa region - Input data. Catch weight at age per cohort since 2000. Catch weight at age is used as stock weight at age in the stock assessment model.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_rec_survey_fig.png"))
+```
+**Figure 5. Sardine in the North West Africa region - Input data. Recruitment index per sub-region and combined.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_ssb_survey_fig.png"))
+```
+**Figure 6. Sardine in the North West Africa region - Input data. TSB indices per sub-region and combined. The lower panels shows the comparison of the TSB from the Nansen and Moroccan surveys for the combined sub-regions.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_nat_mort.png")) 
+```
+**Figure 7. Sardine in the North West Africa region. Natural mortality at age.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'input', "input_data_map.png")) 
+```
+**Figure 8. Sardine in the North West Africa region. Map of data used for the assessment using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_stock_trajectory.png")) 
+```
+
+**Figure 9. Sardine in the North West Africa region. Stock trajectory estimated by the stock assessment model using the combining of input data for sub-regions A+B and C. The quantities plotted are SSB, fishing mortality (age 2-5) and recruitment.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_observation_var_by_source.png")) 
+```
+
+**Figure 10. Sardine in the North West Africa region. Observation variance by source as estimated by the stock assessment model using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_selectivity.png")) 
+```
+
+**Figure 11. Sardine in the North West Africa region. Fishing selectivity at age per 5 years, as estimated by the stock assessment model using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_catch_fit_SOP.png")) 
+```
+
+**Figure 12. Sardine in the North West Africa region. Model fit to the catch SOP.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_catch_fit.png"))
+```
+
+**Figure 13. Sardine in the North West Africa region. Model fit to the catch at age data.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_MA_idx_fit.png")) 
+```
+
+**Figure 14. Sardine in the North West Africa region. Model fit to the Moroccan indices at age data.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_rec_fit.png")) 
+```
+
+**Figure 15. Sardine in the North West Africa region. Model fit to the recruitment time series.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_MA_ssb_fit.png")) 
+```
+
+**Figure 16. Sardine in the North West Africa region. Model fit to the Moroccan TSB index.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_nansen_ssb_fit.png")) 
+```
+
+**Figure 17. Sardine in the North West Africa region. Model fit to the Moroccan TSB index.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_retro_fig.png")) 
+```
+
+**Figure 18. Sardine in the North West Africa region. Assessment model retrospective in SSB, fishing mortality (age 2-5) and recruitment.**
+
+\newpage
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_loo_ssb_fit.png")) 
+```
+
+**Figure 19. Sardine in the North West Africa region. SSB results of leave one out analysis.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_loo_fbar_fit.png")) 
+```
+
+**Figure 20. Sardine in the North West Africa region. Fishing mortality (Fbar, age 2-5) results of leave one out analysis.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_loo_rec_fit.png")) 
+```
+
+**Figure 21. Sardine in the North West Africa region. Recruitment results of leave one out analysis.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'assessment', "assessment_compare_regions_fig.png")) 
+```
+
+**Figure 22. Sardine in the North West Africa region. Comparison of stock trajectories as estimated by the stock assessment models applied to sub-regions A+B, C and combined. The results of the stock assessments for sub-regions A+B and C are only illustrative because only the stock assessment using the combining of input data for sub-regions A+B and C underwent extensive scrutiny and exemplified acceptable model properties.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'refpts', "refpts_fit_SRR_fig.png")) 
+```
+
+**Figure 23. Sardine in the North West Africa region. Fit of stock recruitment functions (Segmented regression (top) and Ricker (bottom)). The SSB/recruitment pairs used are those estimated by the stock assessment model using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'refpts', "refpts_MSY_fig.png")) 
+```
+
+**Figure 24. Sardine in the North West Africa region. Scanning of different levels of fishing mortality for the derivation of MSY reference points. The results are for the assessment using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'refpts', "refpts_stock_status_fig.png")) 
+```
+
+**Figure 25. Sardine in the North West Africa region. SSB and fishing mortality relative to biomass and fishing mortality reference points. The results are for the assessment using the combining of input data for sub-regions A+B and C.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'refpts', "refpts_compare_status_fig.png")) 
+```
+
+**Figure 26. Sardine in the North West Africa region. SSB and fishing mortality relative to SBMSY and FMSY for using the results of the stock assessment models applied to sub-regions A+B, C and combined. The results of the stock assessments for sub-regions A+B and C are only illustrative because only the stock assessment using the combining of input data for sub-regions A+B and C underwent extensive scrutiny and exemplified acceptable model properties.**
+
+\newpage
+
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE} 
+knitr::include_graphics(file.path(reportPath,'stf', "stf_stf_fig.png")) 
+```
+
+**Figure 27. Sardine in the North West Africa region. Short term projections (SSB, fishing mortality and catch) of the stock using the results of the assessment using the combining of input data for sub-regions A+B and C. The following scenarios are provided: status quo in Catch (Csq), status quo in fishing mortality (fsq), no fishing (nf), recovery to SBMSY as soon as possible (SBMSY), recovery to SBMSY with a cap (10%/20%/30%) on yearly catch decrease (SBMSY.C.cap10/20/30).**

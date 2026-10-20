@@ -1,0 +1,212 @@
+---
+output:
+  word_document:
+    reference_docx: template_pil.dotx
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+
+library(knitr)
+knitr::opts_chunk$set(comment = NA)
+
+library(icesTAF)
+
+library(FLCore)
+library(stockassessment)
+library(FLSAM)
+
+library(tidyverse)
+library(pander)
+
+model.path      <- file.path(".",'model')
+output.path      <- file.path(".",'output')
+report.path      <- file.path(".","report")
+
+# Data settings
+
+# single fleet data
+runName <- 'pil_pelnord2025_sf'
+wg      <- "pelnord2025"
+
+load(file.path(model.path,paste0(runName,'.RData')))
+name(pil.all) <- runName
+
+panderOptions('keep.line.breaks', TRUE)
+
+```
+
+
+**Table 1. Sardine in the North West Africa region - Input data. Catch tonnage for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/caton.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 2. Sardine in the North West Africa region - Input data. Stock and catch weight at age for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/wstock.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 3. Sardine in the North West Africa region - Input data. Catch at age for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/catage.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 4. Sardine in the North West Africa region - Input data. Moroccan survey index at age for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/survey_MA_idx.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 5. Sardine in the North West Africa region - Input data. Moroccan survey ssb index for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/MA_ssb.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 6. Sardine in the North West Africa region - Input data. Recruitment survey index for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/survey_rec.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 7. Sardine in the North West Africa region - Input data. Nansen survey SSB index for combined regions.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/nansen_ssb.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+**Table 8. Sardine in the North West Africa region - Input data. Maturity at age.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/maturity.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 9. Sardine in the North West Africa region - Input data. Natural mortality at age.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/natmort.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 10. Sardine in the North West Africa region - Stock assessment model outputs. Estimated stock numbers at age for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/stock.n.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 11. Sardine in the North West Africa region - Stock assessment model outputs. Estimated fishing mortality at age for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/harvest.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+**Table 12. Sardine in the North West Africa region - Stock assessment model outputs. Estimated recruitment for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/rec.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 13. Sardine in the North West Africa region - Stock assessment model outputs. Estimated Spawning Stock Biomass (SSB) for all sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/stock.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+
+**Table 14. Sardine in the North West Africa region - Stock assessment model outputs. Model retrospective of the main assessment model (using data combining all sub-regions).**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/mohn_rho_sf.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+\newpage
+
+**Table 15. Sardine in the North West Africa region. Reference points per sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/refpts.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+
+\newpage
+
+**Table 16. Sardine in the North West Africa region. Status of the stock relative to reference points per sub-regions and combined.**
+
+```{r echo=FALSE, fig.align="center", fig.asp=0.6, message=FALSE, warning=FALSE}
+
+pander::pandoc.table(as.data.frame(read.csv('output/stock_status.csv',check.names = FALSE)),
+                     style="simple", split.tables=200, justify="right", missing=".")
+
+```
+
+
